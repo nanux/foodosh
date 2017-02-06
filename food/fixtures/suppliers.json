@@ -1,0 +1,23 @@
+[
+  {
+    "model": "food.supplier",
+    "pk": 1,
+    "fields": {
+      "name": "Harris Farm"
+    }
+  },
+  {
+    "model": "food.supplier",
+    "pk": 2,
+    "fields": {
+      "name": "Flamington market (fresh in fresh out)"
+    }
+  },
+  {
+    "model": "food.supplier",
+    "pk": 3,
+    "fields": {
+      "name": "Woolworths"
+    }
+  }
+]

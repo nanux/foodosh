@@ -1,0 +1,37 @@
+[
+  {
+    "model": "food.mealgroup",
+    "pk": 1,
+    "fields": {
+      "name": "Meat/Fish"
+    }
+  },
+  {
+    "model": "food.mealgroup",
+    "pk": 2,
+    "fields": {
+      "name": "Diary"
+    }
+  },
+  {
+    "model": "food.mealgroup",
+    "pk": 3,
+    "fields": {
+      "name": "Pasta/Rice/Potatoe/Pizza"
+    }
+  },
+  {
+    "model": "food.mealgroup",
+    "pk": 4,
+    "fields": {
+      "name": "Veggie/Dip/Crackers"
+    }
+  },
+  {
+    "model": "food.mealgroup",
+    "pk": 5,
+    "fields": {
+      "name": "Friday Treat"
+    }
+  }
+]
