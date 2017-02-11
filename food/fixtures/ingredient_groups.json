@@ -1,0 +1,58 @@
+[
+  {
+    "model": "food.ingredientgroup",
+    "pk": 2,
+    "fields": {
+      "name": "Fruits"
+    }
+  },
+  {
+    "model": "food.ingredientgroup",
+    "pk": 3,
+    "fields": {
+      "name": "Vegetable"
+    }
+  },
+  {
+    "model": "food.ingredientgroup",
+    "pk": 4,
+    "fields": {
+      "name": "Bread/bakery"
+    }
+  },
+  {
+    "model": "food.ingredientgroup",
+    "pk": 5,
+    "fields": {
+      "name": "Dairy"
+    }
+  },
+  {
+    "model": "food.ingredientgroup",
+    "pk": 6,
+    "fields": {
+      "name": "Canned/Dry/Baking Goods"
+    }
+  },
+  {
+    "model": "food.ingredientgroup",
+    "pk": 7,
+    "fields": {
+      "name": "Frozen Foods"
+    }
+  },
+  {
+    "model": "food.ingredientgroup",
+    "pk": 8,
+    "fields": {
+      "name": "Meat"
+    }
+  },
+  {
+    "model": "food.ingredientgroup",
+    "pk": 9,
+    "fields": {
+      "name": "Paper Goods/Cleaners"
+    }
+  }
+]

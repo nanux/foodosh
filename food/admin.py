@@ -1,11 +1,30 @@
 from django.contrib import admin
-from .models import Ingredient, IngredientGroup, Meal, MealGroup, Supplier, IngredientInMeal
+from django.forms import TextInput, Textarea
 
-# Register your models here.
+from .models import *
+
+class IngredientInline(admin.TabularInline):
+    model = IngredientInMeal
+    extra = 1
+
+class MealAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'show_ingredients']
+    inlines = (IngredientInline,)
+    formfield_overrides = {
+        models.CharField: {'widget': TextInput(attrs={'size':'120'})},
+        models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':40})},
+    }
+
+
+    def show_ingredients(self, obj):
+        return "\n".join([a.name for a in obj.ingredients.all()])
+
 
 admin.site.register(Ingredient)
 admin.site.register(IngredientGroup)
-admin.site.register(Meal)
+admin.site.register(Meal, MealAdmin)
 admin.site.register(MealGroup)
 admin.site.register(Supplier)
 admin.site.register(IngredientInMeal)
+
+

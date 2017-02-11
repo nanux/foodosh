@@ -6,17 +6,21 @@ from django.db import models
 class IngredientGroup(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 class MealGroup(models.Model):
     name = models.CharField(max_length=100)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
 class Supplier(models.Model):
     name = models.CharField(max_length=100)
-    def __unicode__(self):
+
+    def __str__(self):
         return self.name
 
 
@@ -30,17 +34,30 @@ class Ingredient(models.Model):
     brand = models.CharField(max_length=100, blank=True)
     purpose = models.CharField(max_length=100, blank=True)
 
+    def __str__(self):
+        return '{0} ({1})'.format(self.name, self.package)
+
+    class Meta:
+        ordering = ['name']
+
 
 class Meal(models.Model):
     name = models.CharField(max_length=100)
-    ingredients = models.ManyToManyField(Ingredient, through='IngredientInMeal')
+    ingredients = models.ManyToManyField(Ingredient, through='IngredientInMeal', related_name='ingredients')
     childCount = models.IntegerField(default=130)
     description = models.CharField(max_length=255, blank=True)
+    ingredient_import = models.CharField(max_length=255, blank=True)
     coeliac = models.CharField(max_length=250, blank=True)
     vegetarian = models.CharField(max_length=250, blank=True)
     vegan = models.CharField(max_length=250, blank=True)
     milk_intolerant = models.CharField(max_length=250, blank=True)
     group = models.ForeignKey(MealGroup, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
 
 
 class IngredientInMeal(models.Model):
