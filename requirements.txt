@@ -1,5 +1,6 @@
 appdirs==1.4.0
 chardet==2.3.0
+dj-database-url==0.4.2
 Django==1.10.5
 django-csvimport==2.5
 django-extensions==1.7.6
