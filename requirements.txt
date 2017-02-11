@@ -1,5 +1,9 @@
 appdirs==1.4.0
+chardet==2.3.0
 Django==1.10.5
+django-csvimport==2.5
+django-extensions==1.7.6
+gunicorn==19.6.0
 packaging==16.8
 pyparsing==2.1.10
 six==1.10.0
