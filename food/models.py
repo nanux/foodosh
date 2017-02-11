@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models import Sum
 
 
 class IngredientGroup(models.Model):
@@ -52,6 +53,20 @@ class Meal(models.Model):
     vegan = models.CharField(max_length=250, blank=True)
     milk_intolerant = models.CharField(max_length=250, blank=True)
     group = models.ForeignKey(MealGroup, on_delete=models.CASCADE)
+
+    @property
+    def price_per_child(self):
+        total = self.ingredients.all().aggregate(Sum('price'))
+        if not total['price__sum']:
+            total['price__sum'] = 0
+        return '$' + str(round(total['price__sum'] / self.childCount, 3))
+
+    @property
+    def price_total(self):
+        total = self.ingredients.all().aggregate(Sum('price'))
+        if not total['price__sum']:
+            total['price__sum'] = 0
+        return '$' + str(round(total['price__sum'], 3))
 
     def __str__(self):
         return self.name

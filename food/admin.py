@@ -8,7 +8,7 @@ class IngredientInline(admin.TabularInline):
     extra = 1
 
 class MealAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'show_ingredients']
+    list_display = ['id', 'name', 'show_ingredients', 'price_per_child', 'price_total']
     inlines = (IngredientInline,)
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size':'120'})},
