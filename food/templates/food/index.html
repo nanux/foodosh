@@ -1,0 +1,67 @@
+{% extends "./layout.html" %}
+{% block content %}
+    <div class="container">
+        <h1>Meal plan</h1>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>🍲</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>Meal Name</strong></td>
+                    <td><h5>{{ mon_meal.name }}</h5></td>
+                    <td><h5>{{ tue_meal.name }}</h5></td>
+                    <td><h5>{{ wed_meal.name }}</h5></td>
+                    <td><h5>{{ thu_meal.name }}</h5></td>
+                    <td><h5>{{ fri_meal.name }}</h5></td>
+                </tr>
+                <tr>
+                    <td><strong>Description</strong></td>
+                    <td>{{ mon_meal.description }}</td>
+                    <td>{{ tue_meal.description }}</td>
+                    <td>{{ wed_meal.description }}</td>
+                    <td>{{ thu_meal.description }}</td>
+                    <td>{{ fri_meal.description }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Type</strong></td>
+                    <td>{{ mon_meal.group }}</td>
+                    <td>{{ tue_meal.group }}</td>
+                    <td>{{ wed_meal.group }}</td>
+                    <td>{{ thu_meal.group }}</td>
+                    <td>{{ fri_meal.group }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2>All meals</h2>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>Meal</th>
+                    <th>Description</th>
+                    <th>Price per child</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for meal in meals %}
+                    <tr>
+                        <td>{{ meal.name }}</td>
+                        <td>{{ meal.description }}</td>
+                        <td>{{ meal.price_per_child }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

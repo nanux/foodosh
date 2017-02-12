@@ -56,17 +56,16 @@ class Meal(models.Model):
 
     @property
     def price_per_child(self):
-        total = self.ingredients.all().aggregate(Sum('price'))
-        if not total['price__sum']:
-            total['price__sum'] = 0
-        return '$' + str(round(total['price__sum'] / self.childCount, 3))
+        return round(self.price_total / self.childCount, 3)
 
     @property
     def price_total(self):
-        total = self.ingredients.all().aggregate(Sum('price'))
-        if not total['price__sum']:
-            total['price__sum'] = 0
-        return '$' + str(round(total['price__sum'], 3))
+        total = 0
+        for ing in self.ingredients.all():
+            iim = IngredientInMeal.objects.get(ingredient=ing, meal=self)
+            total += ing.price * iim.amount
+
+        return round(total, 3)
 
     def __str__(self):
         return self.name
@@ -78,4 +77,4 @@ class Meal(models.Model):
 class IngredientInMeal(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
-    count = models.IntegerField()
+    amount = models.IntegerField()
