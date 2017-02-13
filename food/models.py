@@ -57,6 +57,15 @@ class Meal(models.Model):
     group = models.ForeignKey(MealGroup, on_delete=models.CASCADE)
 
     @property
+    def price_meal(self):
+        total = 0
+        for ing in self.ingredients.all():
+            iim = IngredientInMeal.objects.get(ingredient=ing, meal=self)
+            total += ing.price * iim.amount
+
+        return round(total, 3)
+
+    @property
     def price_total(self):
         # we sum veggies and late tea and the meal price
         veggies_price = 10
@@ -71,25 +80,12 @@ class Meal(models.Model):
         except ObjectDoesNotExist:
             print("Using default value for late afternoon tea = {}", tea_price)
 
-        total = veggies_price + tea_price
-        for ing in self.ingredients.all():
-            iim = IngredientInMeal.objects.get(ingredient=ing, meal=self)
-            total += ing.price * iim.amount
-
+        total = veggies_price + tea_price + self.price_meal
         return round(total, 3)
 
     @property
     def price_per_child(self):
         return round(self.price_total / self.childCount, 3)
-
-    @property
-    def price_meal(self):
-        total = 0
-        for ing in self.ingredients.all():
-            iim = IngredientInMeal.objects.get(ingredient=ing, meal=self)
-            total += ing.price * iim.amount
-
-        return round(total, 3)
 
     def __str__(self):
         return self.name

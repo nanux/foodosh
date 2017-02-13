@@ -3,18 +3,19 @@ from django.forms import TextInput, Textarea
 
 from .models import *
 
+
 class IngredientInline(admin.TabularInline):
     model = IngredientInMeal
     extra = 1
 
+
 class MealAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'show_ingredients', 'price_per_child', 'price_total']
+    list_display = ['id', 'name', 'show_ingredients', 'price_meal', 'price_total', 'price_per_child']
     inlines = (IngredientInline,)
     formfield_overrides = {
-        models.CharField: {'widget': TextInput(attrs={'size':'120'})},
-        models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':40})},
+        models.CharField: {'widget': TextInput(attrs={'size': '120'})},
+        models.TextField: {'widget': Textarea(attrs={'rows': 4, 'cols': 40})},
     }
-
 
     def show_ingredients(self, obj):
         return "\n".join([a.name for a in obj.ingredients.all()])
@@ -28,5 +29,3 @@ admin.site.register(Supplier)
 admin.site.register(IngredientInMeal)
 admin.site.register(MealPlan)
 admin.site.register(Side)
-
-
