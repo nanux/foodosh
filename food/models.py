@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
+import calendar
+
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.db.models import Sum
 
 
 class IngredientGroup(models.Model):
@@ -55,11 +57,33 @@ class Meal(models.Model):
     group = models.ForeignKey(MealGroup, on_delete=models.CASCADE)
 
     @property
+    def price_total(self):
+        # we sum veggies and late tea and the meal price
+        veggies_price = 10
+        try:
+            veggies_price = Side.objects.get(name='Veggies').price
+        except ObjectDoesNotExist:
+            print("Using default value for veggies = {}", veggies_price)
+
+        tea_price = 20
+        try:
+            tea_price = Side.objects.get(name='Late afternoon tea').price
+        except ObjectDoesNotExist:
+            print("Using default value for late afternoon tea = {}", tea_price)
+
+        total = veggies_price + tea_price
+        for ing in self.ingredients.all():
+            iim = IngredientInMeal.objects.get(ingredient=ing, meal=self)
+            total += ing.price * iim.amount
+
+        return round(total, 3)
+
+    @property
     def price_per_child(self):
         return round(self.price_total / self.childCount, 3)
 
     @property
-    def price_total(self):
+    def price_meal(self):
         total = 0
         for ing in self.ingredients.all():
             iim = IngredientInMeal.objects.get(ingredient=ing, meal=self)
@@ -74,7 +98,24 @@ class Meal(models.Model):
         ordering = ['name']
 
 
+class Side(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    price = models.FloatField()
+
+    def __str__(self):
+        return self.name
+
+
 class IngredientInMeal(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     amount = models.IntegerField()
+
+
+class MealPlan(models.Model):
+    date = models.DateField()
+    meals = models.ManyToManyField(Meal)
+    childCount = models.IntegerField(default=130)
+
+    def __str__(self):
+        return "{} - {}".format(self.date, calendar.day_name[self.date.weekday()])

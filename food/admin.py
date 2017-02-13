@@ -26,5 +26,7 @@ admin.site.register(Meal, MealAdmin)
 admin.site.register(MealGroup)
 admin.site.register(Supplier)
 admin.site.register(IngredientInMeal)
+admin.site.register(MealPlan)
+admin.site.register(Side)
 
 
