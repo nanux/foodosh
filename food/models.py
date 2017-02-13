@@ -110,7 +110,7 @@ class IngredientInMeal(models.Model):
 
 class MealPlan(models.Model):
     date = models.DateField()
-    meals = models.ManyToManyField(Meal)
+    meals = models.ForeignKey(Meal, null=True)
     childCount = models.IntegerField(default=130)
 
     def __str__(self):
