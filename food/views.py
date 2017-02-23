@@ -5,9 +5,15 @@ from food.models import Meal, Side
 
 
 def index(request):
-    meals = Meal.objects.all()
     template = loader.get_template('food/index.html')
-    meals = meals.filter(id__in=[1,2,3,4,5])
+    # this needs to be replaced by dynamic fetch from the meal plan
+    # don't look at me, I am sick and I need to get this done before lunch :)
+    meals = []
+    meals.append(Meal.objects.get(id=6))
+    meals.append(Meal.objects.get(id=12))
+    meals.append(Meal.objects.get(id=22))
+    meals.append(Meal.objects.get(id=32))
+    meals.append(Meal.objects.get(id=11))
     veggies = Side.objects.get(name='Veggies')
     late_tea = Side.objects.get(name='Late afternoon tea')
     context = {
