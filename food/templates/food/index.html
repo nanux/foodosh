@@ -55,25 +55,25 @@
                 <tr>
                     <td><strong>Coeliac</strong></td>
                     {% for meal in meals %}
-                        <td>{{ mon_meal.coeliac|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
+                        <td>{{ meal.coeliac|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
                 </tr>
                 <tr>
                     <td><strong>Vegeterian</strong></td>
                     {% for meal in meals %}
-                        <td>{{ mon_meal.vegeterian|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
+                        <td>{{ meal.vegetarian|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
                 </tr>
                 <tr>
                     <td><strong>Vegan</strong></td>
                     {% for meal in meals %}
-                        <td>{{ mon_meal.vegan|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
+                        <td>{{ meal.vegan|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
                 </tr>
                 <tr>
                     <td><strong>Milk Intolerant</strong></td>
                     {% for meal in meals %}
-                        <td>{{ mon_meal.milk_intolerant|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
+                        <td>{{ meal.milk_intolerant|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
                 </tr>
                 <tr>
