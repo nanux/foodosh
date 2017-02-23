@@ -6,60 +6,59 @@
             <table>
                 <thead>
                 <tr>
-                    <th>🍲</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
+                    <th width="16.6%"></th>
+                    <th width="16.6%">Monday</th>
+                    <th width="16.6%">Tuesday</th>
+                    <th width="16.6%">Wednesday</th>
+                    <th width="16.6%">Thursday</th>
+                    <th width="16.6%">Friday</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td><strong>Meal Name</strong></td>
-                    <td><h5>{{ mon_meal.name }}</h5></td>
-                    <td><h5>{{ tue_meal.name }}</h5></td>
-                    <td><h5>{{ wed_meal.name }}</h5></td>
-                    <td><h5>{{ thu_meal.name }}</h5></td>
-                    <td><h5>{{ fri_meal.name }}</h5></td>
+                    <td><strong>Afternoon Tea <sup>3.15pm</sup></strong></td>
+                    {% for meal in meals %}
+                        <td><em>{{ meal.name }}</em></td>
+                    {% endfor %}
                 </tr>
                 <tr>
                     <td><strong>Description</strong></td>
-                    <td>{{ mon_meal.description }}</td>
-                    <td>{{ tue_meal.description }}</td>
-                    <td>{{ wed_meal.description }}</td>
-                    <td>{{ thu_meal.description }}</td>
-                    <td>{{ fri_meal.description }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Type</strong></td>
-                    <td>{{ mon_meal.group }}</td>
-                    <td>{{ tue_meal.group }}</td>
-                    <td>{{ wed_meal.group }}</td>
-                    <td>{{ thu_meal.group }}</td>
-                    <td>{{ fri_meal.group }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <h2>All meals</h2>
-        <div class="row">
-            <table>
-                <thead>
-                <tr>
-                    <th>Meal</th>
-                    <th>Description</th>
-                    <th>Price per child</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for meal in meals %}
-                    <tr>
-                        <td>{{ meal.name }}</td>
+                    {% for meal in meals %}
                         <td>{{ meal.description }}</td>
-                        <td>{{ meal.price_per_child }}</td>
-                    </tr>
-                {% endfor %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td><strong>Side</strong></td>
+                    <td colspan="5" class="center">Always provided with fresh cut veggie sticks</td>
+                </tr>
+                <tr>
+                    <td><strong>Late Afternoon Tea <sup>5pm</sup></strong></td>
+                    <td colspan="5" class="center">Fresh local seassonal fruit bowl</td>
+                </tr>
+                <tr>
+                    <td><strong>Coeliac</strong></td>
+                    {% for meal in meals %}
+                        <td>{{ mon_meal.coeliac|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td><strong>Vegeterian</strong></td>
+                    {% for meal in meals %}
+                        <td>{{ mon_meal.vegeterian|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td><strong>Vegan</strong></td>
+                    {% for meal in meals %}
+                        <td>{{ mon_meal.vegan|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td><strong>Milk Intolerant</strong></td>
+                    {% for meal in meals %}
+                        <td>{{ mon_meal.milk_intolerant|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
+                    {% endfor %}
+                </tr>
                 </tbody>
             </table>
         </div>

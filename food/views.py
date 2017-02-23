@@ -7,12 +7,8 @@ from food.models import Meal
 def index(request):
     meals = Meal.objects.all()
     template = loader.get_template('food/index.html')
+    meals = meals.filter(id__in=[1,2,3,4,5])
     context = {
         'meals': meals,
-        'mon_meal': meals.get(id=1),
-        'tue_meal': meals.get(id=2),
-        'wed_meal': meals.get(id=3),
-        'thu_meal': meals.get(id=4),
-        'fri_meal': meals.get(id=5),
     }
     return HttpResponse(template.render(context, request))
