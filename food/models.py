@@ -68,13 +68,11 @@ class Meal(models.Model):
     @property
     def price_total(self):
         # we sum veggies and late tea and the meal price
-        veggies_price = 10
         try:
             veggies_price = Side.objects.get(name='Veggies').price
         except ObjectDoesNotExist:
             print("Using default value for veggies = {}", veggies_price)
 
-        tea_price = 20
         try:
             tea_price = Side.objects.get(name='Late afternoon tea').price
         except ObjectDoesNotExist:

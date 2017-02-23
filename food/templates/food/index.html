@@ -1,7 +1,21 @@
 {% extends "./layout.html" %}
+{% load static %}
 {% block content %}
     <div class="container">
-        <h1>Meal plan</h1>
+
+        <div class="row" style="margin-top: 10px">
+            <div class="two columns">
+                <img src="{% static 'images/the-hive.png' %}" width="80" height="80" style="margin: 10px"/>
+            </div>
+            <div class="eight columns">
+                <h2 class="center">Meal Plan</h2>
+                <h4 class="center">Term 2 / Week 5</h4>
+            </div>
+            <div class="two columns">
+                <img src="{% static 'images/bee-logo.png' %}" width="80" height="80" style="margin: 15px"/>
+            </div>
+        </div>
+
         <div class="row">
             <table>
                 <thead>
@@ -15,6 +29,13 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td><strong>Breakfast <sup>8am</sup></strong></td>
+                    <td colspan="5" class="center">
+                        Homemade and store-bought healthy cereals; organic full cream milk; wholegrain/rye toast &
+                        organic butter
+                    </td>
+                </tr>
                 <tr>
                     <td><strong>Afternoon Tea <sup>3.15pm</sup></strong></td>
                     {% for meal in meals %}
@@ -30,10 +51,6 @@
                 <tr>
                     <td><strong>Side</strong></td>
                     <td colspan="5" class="center">{{ veggies.description }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Late Afternoon Tea <sup>5pm</sup></strong></td>
-                    <td colspan="5" class="center">{{ late_tea.description }}</td>
                 </tr>
                 <tr>
                     <td><strong>Coeliac</strong></td>
@@ -58,6 +75,10 @@
                     {% for meal in meals %}
                         <td>{{ mon_meal.milk_intolerant|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
+                </tr>
+                <tr>
+                    <td><strong>Late Afternoon Tea <sup>5pm</sup></strong></td>
+                    <td colspan="5" class="center">{{ late_tea.description }}</td>
                 </tr>
                 </tbody>
             </table>
