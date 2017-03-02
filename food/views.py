@@ -9,11 +9,11 @@ def index(request):
     # this needs to be replaced by dynamic fetch from the meal plan
     # don't look at me, I am sick and I need to get this done before lunch :)
     meals = []
-    meals.append(Meal.objects.get(id=6))
-    meals.append(Meal.objects.get(id=12))
-    meals.append(Meal.objects.get(id=22))
-    meals.append(Meal.objects.get(id=32))
-    meals.append(Meal.objects.get(id=11))
+    meals.append(Meal.objects.get(id=20))
+    meals.append(Meal.objects.get(id=29))
+    meals.append(Meal.objects.get(id=17))
+    meals.append(Meal.objects.get(id=4))
+    meals.append(Meal.objects.get(id=14))
     veggies = Side.objects.get(name='Veggies')
     late_tea = Side.objects.get(name='Late afternoon tea')
     context = {
