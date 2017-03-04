@@ -3,7 +3,7 @@ from datetime import timedelta, date
 from django.http import HttpResponse
 from django.template import loader
 
-from food.models import Side, Term, MealPlan
+from food.models import Side, Term, MealPlan, IngredientInMeal
 
 
 def index(request, year=2017, term=1, week=0):
@@ -13,19 +13,7 @@ def index(request, year=2017, term=1, week=0):
     if week == 0:
         week = Term.get_week(term, date.today())
 
-    start_date = term.start + timedelta(weeks=int(week) - 1)
-    end_date = start_date + timedelta(weeks=1)
-
-    plans = MealPlan.objects.filter(date__gte=start_date, date__lt=end_date)
-
-    # if we don't have mealplan for a weekday we need to fill empty space
-    meals = []
-    for i in range(5):
-        day = list(filter(lambda plan: plan.date.weekday() == i, plans))
-        if len(day) > 0:
-            meals.append(day[0].meal)
-        else:
-            meals.append(None)
+    meals = get_meals(term, week)
 
     veggies = Side.objects.get(name='Veggies')
     late_tea = Side.objects.get(name='Late afternoon tea')
@@ -35,5 +23,53 @@ def index(request, year=2017, term=1, week=0):
         'meals': meals,
         'veggies': veggies,
         'late_tea': late_tea
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def get_meals(term, week):
+    start_date = term.start + timedelta(weeks=int(week) - 1)
+    end_date = start_date + timedelta(weeks=1)
+    plans = MealPlan.objects.filter(date__gte=start_date, date__lt=end_date)
+    # if we don't have mealplan for a weekday we need to fill empty space
+    meals = []
+    for i in range(5):
+        day = list(filter(lambda plan: plan.date.weekday() == i, plans))
+        if len(day) > 0:
+            meals.append(day[0].meal)
+        else:
+            meals.append(None)
+    return meals
+
+
+def ingredients_weeks(request):
+    template = loader.get_template('food/shopping_list.html')
+    return HttpResponse(template.render(request))
+
+
+def shopping_list(request, year, term, week):
+    template = loader.get_template('food/shopping_list.html')
+
+    term = Term.objects.get(year=year, term=term)
+
+    meals = get_meals(term, week)
+    ingredients = {}
+
+    for meal in meals:
+        for ingredient in meal.ingredients.all():
+            iim = IngredientInMeal.objects.get(meal=meal, ingredient=ingredient)
+            ingredient_name = iim.ingredient.name.strip()
+            if ingredient_name in ingredients:
+                ingredients[ingredient_name] += iim.amount
+            else:
+                ingredients[ingredient_name] = iim.amount
+
+    print(ingredients)
+
+    context = {
+        'term': term.term,
+        'week': week,
+        'meals': meals,
+        'ingredients': ingredients,
     }
     return HttpResponse(template.render(context, request))
