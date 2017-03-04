@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, date
 
 from django.http import HttpResponse
 from django.template import loader
@@ -6,9 +6,13 @@ from django.template import loader
 from food.models import Side, Term, MealPlan
 
 
-def index(request, year=2017, term=1, week=1):
+def index(request, year=2017, term=1, week=0):
     template = loader.get_template('food/index.html')
+
     term = Term.objects.get(year=year, term=term)
+    if week == 0:
+        week = Term.get_week(term, date.today())
+
     start_date = term.start + timedelta(weeks=int(week) - 1)
     end_date = start_date + timedelta(weeks=1)
 
