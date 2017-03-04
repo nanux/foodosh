@@ -1,22 +1,33 @@
+from datetime import timedelta
+
 from django.http import HttpResponse
 from django.template import loader
 
-from food.models import Meal, Side
+from food.models import Side, Term, MealPlan
 
 
-def index(request):
+def index(request, year=2017, term=1, week=1):
     template = loader.get_template('food/index.html')
-    # this needs to be replaced by dynamic fetch from the meal plan
-    # don't look at me, I am sick and I need to get this done before lunch :)
+    term = Term.objects.get(year=year, term=term)
+    start_date = term.start + timedelta(weeks=int(week) - 1)
+    end_date = start_date + timedelta(weeks=1)
+
+    plans = MealPlan.objects.filter(date__gte=start_date, date__lt=end_date)
+
+    # if we don't have mealplan for a weekday we need to fill empty space
     meals = []
-    meals.append(Meal.objects.get(id=20))
-    meals.append(Meal.objects.get(id=29))
-    meals.append(Meal.objects.get(id=17))
-    meals.append(Meal.objects.get(id=4))
-    meals.append(Meal.objects.get(id=14))
+    for i in range(5):
+        day = list(filter(lambda plan: plan.date.weekday() == i, plans))
+        if len(day) > 0:
+            meals.append(day[0].meal)
+        else:
+            meals.append(None)
+
     veggies = Side.objects.get(name='Veggies')
     late_tea = Side.objects.get(name='Late afternoon tea')
     context = {
+        'term': term.term,
+        'week': week,
         'meals': meals,
         'veggies': veggies,
         'late_tea': late_tea

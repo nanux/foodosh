@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-import calendar
+from datetime import timedelta
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -109,8 +109,48 @@ class IngredientInMeal(models.Model):
 
 class MealPlan(models.Model):
     date = models.DateField()
-    meals = models.ForeignKey(Meal, null=True)
+    meal = models.ForeignKey(Meal, null=True)
     childCount = models.IntegerField(default=130)
 
     def __str__(self):
-        return "{} - {}".format(self.date, calendar.day_name[self.date.weekday()])
+        date = self.date.strftime('%d/%m/%y (%a)')
+        return "{} - {}".format(date, self.meal.name)
+
+    @property
+    def get_term(self):
+        return Term.get_term_from_date(self.date)
+
+    @property
+    def get_week_and_term(self):
+        term = self.get_term
+        week = term.get_week(term, self.date)
+        return "{}/{} - W{}".format(term.year, term.term, week)
+
+    class Meta:
+        ordering = ['date']
+
+
+class Term(models.Model):
+    term = models.IntegerField()
+    year = models.IntegerField()
+    weeks = models.IntegerField(default=10)
+    start = models.DateField()
+    end = models.DateField(blank=True, help_text="Don't fill")
+
+    def save(self, *args, **kwargs):
+        if not self.end:
+            self.end = self.start + timedelta(weeks=self.weeks)
+        super(Term, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "{}/{} ({} - {})".format(self.year, self.term, self.start.strftime("%d/%m"), self.end.strftime("%d/%m"))
+
+    @classmethod
+    def get_term_from_date(cls, date):
+        return Term.objects.get(start__lte=date, end__gte=date)
+
+    @staticmethod
+    def get_week(term, date):
+        monday1 = (term.start - timedelta(days=term.start.weekday()))
+        monday2 = (date - timedelta(days=date.weekday()))
+        return int((monday2 - monday1).days / 7) + 1

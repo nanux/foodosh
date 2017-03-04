@@ -21,11 +21,19 @@ class MealAdmin(admin.ModelAdmin):
         return "\n".join([a.name for a in obj.ingredients.all()])
 
 
+class MealPlanAdmin(admin.ModelAdmin):
+    list_display = ['_date', 'meal', 'get_week_and_term']
+
+    def _date(self, obj):
+        return obj.date.strftime('%d/%m/%y (%a)')
+
+
 admin.site.register(Ingredient)
 admin.site.register(IngredientGroup)
 admin.site.register(Meal, MealAdmin)
 admin.site.register(MealGroup)
 admin.site.register(Supplier)
 admin.site.register(IngredientInMeal)
-admin.site.register(MealPlan)
+admin.site.register(MealPlan, MealPlanAdmin)
 admin.site.register(Side)
+admin.site.register(Term)

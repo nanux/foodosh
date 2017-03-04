@@ -1,3 +1,9 @@
 .center {
     text-align: center;
 }
+
+@media print {
+    body {
+        zoom: 80%
+    }
+}
