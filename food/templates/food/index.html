@@ -30,13 +30,13 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><strong><sub>8am</sub><br>Breakfast</strong></td>
+                    <td><strong><sup>8am</sup><br>Breakfast</strong></td>
                     <td colspan="5" class="center">
                         {{ breakfast.description | linebreaksbr }}
                     </td>
                 </tr>
                 <tr>
-                    <td><strong><sub>3.15pm</sub><br>Afternoon Tea</strong></td>
+                    <td><strong><sup>3.15pm</sup><br>Afternoon Tea</strong></td>
                     {% for meal in meals %}
                         <td><em>{{ meal.name }}</em></td>
                     {% endfor %}
@@ -80,7 +80,7 @@
                     {% endfor %}
                 </tr>
                 <tr>
-                    <td><strong><sub>5pm</sub><br>Fruit</strong></td>
+                    <td><strong><sup>5pm</sup><br>Fruit</strong></td>
                     <td colspan="5" class="center">{{ fruit.description | linebreaksbr }}</td>
                 </tr>
                 </tbody>
