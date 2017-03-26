@@ -19,7 +19,6 @@ def index(request, year=2017, term=1, week=0):
     fruit = Side.objects.get(name='Fruit')
     for meal in meals:
         meal.description = meal.description.split(",")
-    meals = list(map(lambda meal: meal.description.split(","), meals))
     context = {
         'term': term.term,
         'week': week,
