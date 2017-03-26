@@ -32,8 +32,7 @@
                 <tr>
                     <td><strong><sub>8am</sub><br>Breakfast</strong></td>
                     <td colspan="5" class="center">
-                        Homemade and store-bought healthy cereals; organic full cream milk; wholegrain/rye toast;
-                        organic butter; spreads
+                        {{ breakfast.description | linebreaksbr }}
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +77,7 @@
                 </tr>
                 <tr>
                     <td><strong><sub>5pm</sub><br>Fruit</strong></td>
-                    <td colspan="5" class="center">{{ fruit.description }}</td>
+                    <td colspan="5" class="center">{{ fruit.description | linebreaksbr }}</td>
                 </tr>
                 </tbody>
             </table>

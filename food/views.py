@@ -15,16 +15,19 @@ def index(request, year=2017, term=1, week=0):
 
     meals = get_meals(term, week)
 
+    breakfast = Side.objects.get(name='Breakfast')
     veggies = Side.objects.get(name='Veggies')
     fruit = Side.objects.get(name='Fruit')
     for meal in meals:
-        meal.description = meal.description.split(",")
+        if meal is not None:
+            meal.description = meal.description.split(",")
     context = {
         'term': term.term,
         'week': week,
         'meals': meals,
         'veggies': veggies,
-        'fruit': fruit
+        'fruit': fruit,
+        'breakfast': breakfast
     }
     return HttpResponse(template.render(context, request))
 
