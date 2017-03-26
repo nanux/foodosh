@@ -5,14 +5,14 @@
 
         <div class="row" style="margin-top: 10px">
             <div class="two columns">
-                <img src="{% static 'images/the-hive.png' %}" width="80" height="80" style="margin: 10px"/>
+                <img src="{% static 'images/bee-logo.png' %}" width="100" height="100" style="margin: 15px"/>
             </div>
             <div class="eight columns">
                 <h2 class="center">Meal Plan</h2>
                 <h4 class="center">Term {{ term }} / Week {{ week }}</h4>
             </div>
             <div class="two columns">
-                <img src="{% static 'images/bee-logo.png' %}" width="80" height="80" style="margin: 15px"/>
+                <img src="{% static 'images/the-hive.png' %}" width="100" height="100" style="margin: 10px"/>
             </div>
         </div>
 
@@ -30,14 +30,14 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><strong>Breakfast <sup>8am</sup></strong></td>
+                    <td><strong><sub>8am</sub><br>Breakfast</strong></td>
                     <td colspan="5" class="center">
-                        Homemade and store-bought healthy cereals; organic full cream milk; wholegrain/rye toast &
-                        organic butter
+                        Homemade and store-bought healthy cereals; organic full cream milk; wholegrain/rye toast;
+                        organic butter; spreads
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>Afternoon Tea <sup>3.15pm</sup></strong></td>
+                    <td><strong><sub>3.15pm</sub><br>Afternoon Tea</strong></td>
                     {% for meal in meals %}
                         <td><em>{{ meal.name }}</em></td>
                     {% endfor %}
@@ -45,7 +45,7 @@
                 <tr>
                     <td><strong>Description</strong></td>
                     {% for meal in meals %}
-                        <td>{{ meal.description }}</td>
+                        <td>{{ meal.description | unordered_list }}</td>
                     {% endfor %}
                 </tr>
                 <tr>
@@ -77,8 +77,8 @@
                     {% endfor %}
                 </tr>
                 <tr>
-                    <td><strong>Late Afternoon Tea <sup>5pm</sup></strong></td>
-                    <td colspan="5" class="center">{{ late_tea.description }}</td>
+                    <td><strong><sub>5pm</sub><br>Fruit</strong></td>
+                    <td colspan="5" class="center">{{ fruit.description }}</td>
                 </tr>
                 </tbody>
             </table>

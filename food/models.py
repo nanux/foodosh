@@ -74,11 +74,11 @@ class Meal(models.Model):
             print("Using default value for veggies = {}", veggies_price)
 
         try:
-            tea_price = Side.objects.get(name='Late afternoon tea').price
+            fruit_price = Side.objects.get(name='Fruit').price
         except ObjectDoesNotExist:
-            print("Using default value for late afternoon tea = {}", tea_price)
+            print("Using default value for fruit = {}", fruit_price)
 
-        total = veggies_price + tea_price + self.price_meal
+        total = veggies_price + fruit_price + self.price_meal
         return round(total, 3)
 
     @property

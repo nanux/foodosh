@@ -16,13 +16,16 @@ def index(request, year=2017, term=1, week=0):
     meals = get_meals(term, week)
 
     veggies = Side.objects.get(name='Veggies')
-    late_tea = Side.objects.get(name='Late afternoon tea')
+    fruit = Side.objects.get(name='Fruit')
+    for meal in meals:
+        meal.description = meal.description.split(",")
+    meals = list(map(lambda meal: meal.description.split(","), meals))
     context = {
         'term': term.term,
         'week': week,
         'meals': meals,
         'veggies': veggies,
-        'late_tea': late_tea
+        'fruit': fruit
     }
     return HttpResponse(template.render(context, request))
 
@@ -63,8 +66,6 @@ def shopping_list(request, year, term, week):
                 ingredients[ingredient_name] += iim.amount
             else:
                 ingredients[ingredient_name] = iim.amount
-
-    print(ingredients)
 
     context = {
         'term': term.term,
