@@ -4,8 +4,42 @@
     transform: rotate(45deg);
 }
 
+.bee-grey {
+    background-color: #e2e2e2;
+}
+
+.bee-yellow {
+    /*background-color: #ffeca7;*/
+    background-color: rgba(252, 223, 17, 0.51);
+}
+
+.day-header {
+    height: 50px;
+}
+
 .center {
     text-align: center;
+}
+
+.rotate-right {
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Chrome, Safari, Opera */
+    transform: rotate(3deg);
+}
+
+.rotate-left {
+    -ms-transform: rotate(-4deg); /* IE 9 */
+    -webkit-transform: rotate(-4deg); /* Chrome, Safari, Opera */
+    transform: rotate(-4deg);
+
+}
+
+thead th {
+    background-color: #FCDF11;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.7em;
+    font-weight: bold;
 }
 
 @media print {

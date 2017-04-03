@@ -22,22 +22,22 @@
                 <thead>
                 <tr>
                     <th width="16.6%"></th>
-                    <th width="16.6%">Monday</th>
-                    <th width="16.6%">Tuesday</th>
-                    <th width="16.6%">Wednesday</th>
-                    <th width="16.6%">Thursday</th>
-                    <th width="16.6%">Friday</th>
+                    <th width="16.6%"><div class="rotate-left">Monday</div></th>
+                    <th width="16.6%"><div>Tuesday</div></th>
+                    <th width="16.6%"><div class="rotate-right">Wednesday</div></th>
+                    <th width="16.6%"><div class="rotate-left">Thursday</div></th>
+                    <th width="16.6%"><div class="rotate-right">Friday</div></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td><strong><sup>8am</sup><br>Breakfast</strong></td>
+                    <td><strong><sup>8am</sup><br>Brekkie</strong></td>
                     <td colspan="5" class="center">
                         {{ breakfast.description | linebreaksbr }}
                     </td>
                 </tr>
                 <tr>
-                    <td><strong><sup>3.15pm</sup><br>Afternoon Tea</strong></td>
+                    <td><strong><sup>3.15pm</sup><br>Hearty Snack</strong></td>
                     {% for meal in meals %}
                         <td><em>{{ meal.name }}</em></td>
                     {% endfor %}
@@ -56,32 +56,32 @@
                         {{ veggies.description | linebreaksbr }}
                     </td>
                 </tr>
-                <tr>
+                <tr class="bee-yellow">
                     <td><strong>Coeliac</strong></td>
                     {% for meal in meals %}
                         <td>{{ meal.coeliac|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
                 </tr>
-                <tr>
+                <tr class="bee-grey">
                     <td><strong>Vegetarian</strong></td>
                     {% for meal in meals %}
                         <td>{{ meal.vegetarian|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
                 </tr>
-                <tr>
+                <tr class="bee-yellow">
                     <td><strong>Vegan</strong></td>
                     {% for meal in meals %}
                         <td>{{ meal.vegan|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
                 </tr>
-                <tr>
+                <tr class="bee-grey">
                     <td><strong>Milk Intolerant</strong></td>
                     {% for meal in meals %}
                         <td>{{ meal.milk_intolerant|default:'<i class="fa fa-check" aria-hidden="true"></i>' }}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <td><strong><sup>5pm</sup><br>Fruit</strong></td>
+                    <td><strong><sup>5pm</sup><br>Nibbles</strong></td>
                     <td colspan="5" class="center">{{ fruit.description | linebreaksbr }}</td>
                 </tr>
                 </tbody>
