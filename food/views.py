@@ -6,7 +6,7 @@ from django.template import loader
 from food.models import Side, Term, MealPlan, IngredientInMeal
 
 
-def index(request, year=2017, term=1, week=0):
+def index(request, year=2017, term=2, week=0):
     template = loader.get_template('food/index.html')
 
     term = Term.objects.get(year=year, term=term)
