@@ -43,5 +43,6 @@ http://localhost:8000/admin/
 - `MealPlan` defines a date from a `Term` and assigns `Meal` for the
  particular day. This day is then reflected on the main menu.
 
+
 ----
 Bon Appetit
