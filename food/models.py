@@ -57,7 +57,7 @@ class Meal(models.Model):
     vegan = models.CharField(max_length=250, blank=True)
     milk_intolerant = models.CharField(max_length=250, blank=True)
     url = models.URLField(blank=True)
-    picture = models.ImageField(blank=True)
+    picture_url = models.URLField(blank=True)
 
     @property
     def price_meal(self):
@@ -89,7 +89,7 @@ class Meal(models.Model):
         return round(self.price_total / self.childCount, 3)
 
     def image_tag(self):
-        return mark_safe('<a href="%s" target="_blank"><img src="/media/%s" width="150" height="150" /></a>' % (self.url, self.picture))
+        return mark_safe('<a href="%s" target="_blank"><img src="%s" width="150" height="150" /></a>' % (self.url, self.picture_url))
 
     image_tag.short_description = 'Image'
 
