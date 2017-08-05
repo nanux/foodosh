@@ -4,6 +4,7 @@ from datetime import timedelta
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.utils.safestring import mark_safe
 
 
 class IngredientGroup(models.Model):
@@ -47,6 +48,7 @@ class Ingredient(models.Model):
 class Meal(models.Model):
     name = models.CharField(max_length=100)
     ingredients = models.ManyToManyField(Ingredient, through='IngredientInMeal', related_name='ingredients')
+    group = models.ForeignKey(MealGroup, on_delete=models.CASCADE)
     childCount = models.IntegerField(default=130)
     description = models.CharField(max_length=255, blank=True)
     ingredient_import = models.CharField(max_length=255, blank=True)
@@ -54,7 +56,8 @@ class Meal(models.Model):
     vegetarian = models.CharField(max_length=250, blank=True)
     vegan = models.CharField(max_length=250, blank=True)
     milk_intolerant = models.CharField(max_length=250, blank=True)
-    group = models.ForeignKey(MealGroup, on_delete=models.CASCADE)
+    url = models.URLField(blank=True)
+    picture = models.ImageField(blank=True)
 
     @property
     def price_meal(self):
@@ -84,6 +87,11 @@ class Meal(models.Model):
     @property
     def price_per_child(self):
         return round(self.price_total / self.childCount, 3)
+
+    def image_tag(self):
+        return mark_safe('<a href="%s" target="_blank"><img src="/media/%s" width="150" height="150" /></a>' % (self.url, self.picture))
+
+    image_tag.short_description = 'Image'
 
     def __str__(self):
         return self.name
