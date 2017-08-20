@@ -32,11 +32,9 @@ class MealPlanAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Ingredient)
-admin.site.register(IngredientGroup)
 admin.site.register(Meal, MealAdmin)
 admin.site.register(MealGroup)
 admin.site.register(Supplier)
-admin.site.register(IngredientInMeal)
 admin.site.register(MealPlan, MealPlanAdmin)
 admin.site.register(Side)
 admin.site.register(Term)
