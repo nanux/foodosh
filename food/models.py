@@ -117,7 +117,7 @@ class IngredientInMeal(models.Model):
 
 class MealPlan(models.Model):
     date = models.DateField()
-    meal = models.ForeignKey(Meal, null=True)
+    meal = models.ForeignKey(Meal, null=True, on_delete=models.SET_NULL)
     childCount = models.IntegerField(default=130)
 
     def __str__(self):
@@ -155,7 +155,17 @@ class Term(models.Model):
 
     @classmethod
     def get_term_from_date(cls, date):
-        return Term.objects.get(start__lte=date, end__gte=date)
+        terms_right_now = Term.objects.filter(start__lte=date, end__gte=date)
+        terms_in_future = Term.objects.filter(start__gte=date).order_by('start')
+        terms_in_past = Term.objects.filter(end__lte=date).order_by('-end')
+        if terms_right_now.count() == 1:
+            return terms_right_now.first()
+        elif terms_in_future.count() != 0:
+            return terms_in_future.first()
+        elif terms_in_past.count() != 0:
+            return terms_in_past.first()
+        else:
+            return None
 
     @staticmethod
     def get_week(term, date):
