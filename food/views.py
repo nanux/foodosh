@@ -1,23 +1,15 @@
-from datetime import timedelta, date, datetime
+from datetime import timedelta, date
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.template import loader
 
 from food.models import Side, Term, MealPlan, IngredientInMeal
 
 
-def index(request, year=None, term=None, week=0):
+def index(request, year=2019, term=1, week=1):
     template = loader.get_template('food/index.html')
 
-    if year is None or term is None:
-        term = Term.get_term_from_date(datetime.today())
-    else:
-        try:
-            term = Term.objects.get(year=year, term=term)
-        except ObjectDoesNotExist as e:
-            return HttpResponse(f"There was an error when processing request: {e}")
-
+    term = Term.objects.get(year=year, term=term)
     if week == 0:
         week = Term.get_week(term, date.today())
 
@@ -30,13 +22,12 @@ def index(request, year=None, term=None, week=0):
         if meal is not None:
             meal.description = meal.description.split(",")
     context = {
-        'term': term,
+        'term': term.term,
         'week': week,
         'meals': meals,
         'veggies': veggies,
         'fruit': fruit,
-        'breakfast': breakfast,
-        'weeks': range(1, term.weeks)
+        'breakfast': breakfast
     }
     return HttpResponse(template.render(context, request))
 
