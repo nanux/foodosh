@@ -102,7 +102,7 @@
         <div class="row">
             <p class="center">
                 {% for week_i in weeks %}
-                    <a href="{% url 'index' term.year term.weeks week_i %}">W{{ week_i }}</a>
+                    <a href="{% url 'index' term.year term.term week_i %}">W{{ week_i }}</a>
                     {% if not forloop.last %}/{% endif %}
                 {% endfor %}
             </p>
