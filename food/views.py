@@ -36,7 +36,7 @@ def index(request, year=None, term=None, week=0):
         'veggies': veggies,
         'fruit': fruit,
         'breakfast': breakfast,
-        'weeks': range(1, term.weeks)
+        'weeks': range(1, term.weeks + 1)
     }
     return HttpResponse(template.render(context, request))
 
