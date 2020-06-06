@@ -1,6 +1,6 @@
 chardet==2.3.0
 dj-database-url==0.4.2
-Django==2.2.12
+Django==2.2.13
 django-extensions==1.7.6
 gunicorn==19.6.0
 packaging==16.8
