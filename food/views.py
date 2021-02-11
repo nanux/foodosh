@@ -23,9 +23,9 @@ def index(request, year=None, term=None, week=0):
 
     meals = get_meals(term, week)
 
-    breakfast = Side.objects.get(name='Breakfast')
-    veggies = Side.objects.get(name='Veggies')
-    fruit = Side.objects.get(name='Fruit')
+    breakfast = Side.objects.get(name__contains='Breakfast')
+    veggies = Side.objects.get(name__contains='Veggies')
+    fruit = Side.objects.get(name__contains='Fruit')
     for meal in meals:
         if meal is not None:
             meal.description = meal.description.split(",")
