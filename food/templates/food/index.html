@@ -9,7 +9,7 @@
                      class="bee-image" style="margin: 15px"/>
             </div>
             <div class="eight columns">
-                <h2 class="center">Meal Plan</h2>
+                <h2 class="center">Hive Menu</h2>
                 <h4 class="center">Term {{ term.term }} - Week {{ week }}</h4>
             </div>
             <div class="two columns">
@@ -23,25 +23,25 @@
                 <tr>
                     <th width="16.6%"></th>
                     <th width="16.6%">
-                        <div class="rotate-left">Monday</div>
+                        <div>Monday</div>
                     </th>
                     <th width="16.6%">
                         <div>Tuesday</div>
                     </th>
                     <th width="16.6%">
-                        <div class="rotate-right">Wednesday</div>
+                        <div>Wednesday</div>
                     </th>
                     <th width="16.6%">
-                        <div class="rotate-left">Thursday</div>
+                        <div>Thursday</div>
                     </th>
                     <th width="16.6%">
-                        <div class="rotate-right">Friday</div>
+                        <div>Friday</div>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td><strong><sup>8am</sup><br>Brekkie</strong></td>
+                    <td><strong><sup>7am</sup><br>Brekkie</strong></td>
                     <td colspan="5" class="center">
                         {{ breakfast.description | linebreaksbr }}
                     </td>
@@ -49,7 +49,7 @@
                 <tr>
                     <td><strong><sup>3.15pm</sup><br>Super Snack</strong></td>
                     {% for meal in meals %}
-                        <td><em>{{ meal.name }}</em></td>
+                        <td class="meal-name">{{ meal.name }}</td>
                     {% endfor %}
                 </tr>
                 <tr>

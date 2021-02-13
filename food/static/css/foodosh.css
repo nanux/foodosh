@@ -42,6 +42,11 @@ thead th {
     font-weight: bold;
 }
 
+tr td.meal-name {
+    font-weight: bold;
+    background-color: rgba(252, 223, 17, 0.51);
+}
+
 @media print {
     body {
         zoom: 80%
